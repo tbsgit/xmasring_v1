@@ -1,1 +1,1 @@
-<xml xmlns="https://developers.google.com/blockly/xml"><block type="pxt-on-start" id="mO#%zdjjJcrab40vAB[t" x="0" y="0"/></xml>
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="pxt-on-start" id="R#uTaytPnx*4:Cvw,-q`" x="0" y="0"><statement name="HANDLER"><block type="basic_show_icon" id="3VFNFZledj6t0//nH4?S"><field name="i">IconNames.Rabbit</field></block></statement></block></xml>

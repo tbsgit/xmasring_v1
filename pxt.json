@@ -1,5 +1,5 @@
 {
-    "name": "xmasring_v1",
+    "name": "xmasring_v2",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -11,8 +11,7 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "christmastree.ts",
-        "christmastree-test.ts"
+        "christmaswreath.ts"
     ],
     "testFiles": [
         "test.ts"
