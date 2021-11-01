@@ -61,11 +61,24 @@ enum Level {
 /**
 * Christmas Ring blocks
 */
-//% weight=100 color=#8de900 icon="❄"
+//% weight=100 color=#00590d icon="֍"
 namespace ChristmasWreath {
     /**
      * A ChristmasWreath ring
      */
+
+    class RGBVector3 {
+        public r: number;
+        public g: number;
+        public b: number;
+
+        constructor(r: number, g: number, b: number) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+    }
+    
     export class ChristmasWreath {
         mode: LEDMode;
         strip: neopixel.Strip;
