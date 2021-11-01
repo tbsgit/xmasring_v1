@@ -6,25 +6,17 @@
     basic.showLeds(`
 		# . . . #
 		# . . . #
-		. . . . .
-		. . . . .
+		# . # # #
 		. . # . .
+		. . # . #
 		`)
     let colorList = [
         ChristmasWreath.showColorWheel(149),
         ChristmasWreath.showColorWheel(129),
-        ChristmasWreath.showColorWheel(185),
-        ChristmasWreath.showColorWheel(214),
+        ChristmasWreath.rgbColor(255, 0, 0),
         ChristmasWreath.hueColor(0),
-        ChristmasWreath.hueColor(12),
-        ChristmasWreath.showColorWheel(120),
-        ChristmasWreath.showColorWheel(129),
-        ChristmasWreath.showColorWheel(149),
-        ChristmasWreath.showColorWheel(185),
-        ChristmasWreath.showColorWheel(214),
-        ChristmasWreath.hueColor(0),
-        ChristmasWreath.hueColor(12),
-        ChristmasWreath.showColorWheel(120),
+        ChristmasWreath.rgbColor(255, 0 ,0),
+        ChristmasWreath.rgbColor(255, 255, 0),
         ChristmasWreath.showColorWheel(149)
     ]
     ring.changeMode(LEDMode.Rainbow)

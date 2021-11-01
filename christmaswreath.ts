@@ -631,10 +631,13 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets RGB Color
-    */
+     * Gets red, green, blue channels into a RGB color
+     * @param red value of the red channel between 0 and 255. eg: 255
+     * @param green value of the green channel between 0 and 255. eg: 255
+     * @param blue value of the blue channel between 0 and 255. eg: 255
+     */
     //% weight=2 blockGap=8
-    //% blockId="christmasring_pickRgbColors" block="Rgb Color $color"    
+    //% blockId="christmasring_pickRgbColors" block="red %red|green %green|blue %blue"
     export function rgbColor(red: number, green: number, blue: number): number {
         return neopixel.rgb(red, green, blue);
     }
