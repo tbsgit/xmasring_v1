@@ -1,17 +1,17 @@
 // tests go here; this will not be compiled when this package is used as an extension.
 {
-    let tree = ChristmasTree.create();
+    let ring = ChristmasWreath.create();
 
     input.onButtonPressed(Button.A, () => {
-        tree.previousMode()
+        ring.previousMode()
     });
     input.onButtonPressed(Button.B, () => {
-        tree.nextMode()
+        ring.nextMode()
     });
 
 
     basic.forever(function () {
-        tree.update();
+        ring.update();
     })
 
     control.inBackground(function () {

@@ -59,17 +59,17 @@ enum Level {
 }
 
 /**
-* Christmas Tree blocks
+* Christmas Ring blocks
 */
-//% weight=100 color=#c49118 icon="❄"
-namespace ChristmasTree {
+//% weight=100 color=#8de900 icon="❄"
+namespace ChristmasWreath {
     /**
-     * A ChristmasTree tree
+     * A ChristmasWreath ring
      */
-    export class ChristmasTree {
+    export class ChristmasWreath {
         mode: LEDMode;
         strip: neopixel.Strip;
-        numOfLEDs: number;
+        //numOfLEDs: number;
         totalNumLeds: number;
         numOfLEDPerPillar: number;
 
@@ -110,10 +110,10 @@ namespace ChristmasTree {
         /**
          * Clear strip led color
          */
-        //% blockId="christmastree_clearStrip" block="%tree clear led color"
-        //% tree.defl=tree
+        //% blockId="christmasring_clearStrip" block="%ring clear led color"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public clearStrip(): void {
             this.strip.clear();
         }
@@ -121,10 +121,10 @@ namespace ChristmasTree {
         /**
          * Show strip led color
          */
-        //% blockId="christmastree_showStrip" block="%tree show led color"
-        //% tree.defl=tree
+        //% blockId="christmasring_showStrip" block="%ring show led color"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public showStrip(): void {
             this.strip.show();
         }
@@ -134,10 +134,10 @@ namespace ChristmasTree {
          * @param startHue the start hue value for the rainbow, eg: 1
          * @param endHue the end hue value for the rainbow, eg: 360
          */
-        //% blockId="christmastree_changeMode" block="%tree|change mode to %mode"
-        //% tree.defl=tree
+        //% blockId="christmasring_changeMode" block="%ring|change mode to %mode"
+        //% ring.defl=ring
         //% weight=85 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public changeMode(m: LEDMode): void {
             this._isSetupRainbow = false;
             this.mode = m;
@@ -148,10 +148,10 @@ namespace ChristmasTree {
          * @param startHue the start hue value for the rainbow, eg: 1
          * @param endHue the end hue value for the rainbow, eg: 360
          */
-        //% blockId="christmastree_rotatePixelColor" block="%tree|move pixel by %mode|pixel"
-        //% tree.defl=tree
+        //% blockId="christmasring_rotatePixelColor" block="%ring|move pixel by %mode|pixel"
+        //% ring.defl=ring
         //% weight=85 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public rotatePixelColor(speed: number): void {
             this.rainbowSpeed = speed;
             if (this.rainbowSpeed > 5) {
@@ -166,10 +166,10 @@ namespace ChristmasTree {
         /**
          * Play next animation
          */
-        //% blockId="christmastree_nextMode" block="%tree play next mode"
-        //% tree.defl=tree
+        //% blockId="christmasring_nextMode" block="%ring play next mode"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public nextMode(): void {
             this._isSetupRainbow = false;
             this.mode += 1;
@@ -181,10 +181,10 @@ namespace ChristmasTree {
         /**
          * Play previous animation
          */
-        //% blockId="christmastree_previousMode" block="%tree play previous mode"
-        //% tree.defl=tree
+        //% blockId="christmasring_previousMode" block="%ring play previous mode"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public previousMode(): void {
             this._isSetupRainbow = false;
             this.mode -= 1;
@@ -196,10 +196,10 @@ namespace ChristmasTree {
         /**
          * Update animation
          */
-        //% blockId="christmastree_update" block="%tree update lighting animation"
-        //% tree.defl=tree
+        //% blockId="christmasring_update" block="%ring update lighting animation"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public update(): void {
             if (this.mode == 0) {
                 this.rainbowAnimation(this.rainbowSpeed);
@@ -245,10 +245,10 @@ namespace ChristmasTree {
         /**
          * Set leds strip to rainbow pattern.
          */
-        //% blockId="christmastree_showRainbow" block="%tree|set to rainbow pattern"
-        //% tree.defl=tree
+        //% blockId="christmasring_showRainbow" block="%ring|set to rainbow pattern"
+        //% ring.defl=ring
         //% weight=85 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public showRainbow(): void {
             this.strip.showRainbow();
         }
@@ -256,10 +256,10 @@ namespace ChristmasTree {
         /**
          * Play rainbow animation
          */
-        //% blockId="christmastree_rainbowAnimation" block="%tree play rainbow animation width speed%speed"
-        //% tree.defl=tree
+        //% blockId="christmasring_rainbowAnimation" block="%ring play rainbow animation width speed%speed"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public rainbowAnimation(speed: number): void {
             this.rainbowSpeed = speed;
             if (this._isSetupRainbow == false || this._isSetupRainbow == null) {
@@ -274,10 +274,10 @@ namespace ChristmasTree {
         /**
          * Play equalizer animation
          */
-        //% blockId="christmastree_equalizerAnimation" block="%tree play equalizer animation with sound level%value"
-        //% tree.defl=tree
+        //% blockId="christmasring_equalizerAnimation" block="%ring play equalizer animation with sound level%value"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public equalizerAnimation(micVal: number): void {
             if (this._lastMicVal != -1) {
                 if (micVal < this._lastMicVal) {
@@ -308,10 +308,10 @@ namespace ChristmasTree {
         /**
          * Play breath animation
          */
-        //% blockId="christmastree_breathAnimation" block="%tree play breath animation"
-        //% tree.defl=tree
+        //% blockId="christmasring_breathAnimation" block="%ring play breath animation"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public breathAnimation() {
             if (this._breathT % 100 == 0) {
                 this._breathDir *= -1;
@@ -334,10 +334,10 @@ namespace ChristmasTree {
         /**
          * Play rise animation
          */
-        //% blockId="christmastree_riseAnimation" block="%tree play rise animation with sound level%micVale and trigger threshold%threshold"
-        //% tree.defl=tree
+        //% blockId="christmasring_riseAnimation" block="%ring play rise animation with sound level%micVale and trigger threshold%threshold"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public riseAnimation(micVal: Number, threshold: Number): void {
             let _duration = 3
             if (micVal > threshold) {
@@ -351,10 +351,10 @@ namespace ChristmasTree {
         /**
          * Trigger rise led effect
          */
-        //% blockId="christmastree_triggerRiseWithColor" block="%tree trigger rise led effect with %duration|duration and %color|color"
-        //% tree.defl=tree
+        //% blockId="christmasring_triggerRiseWithColor" block="%ring trigger rise led effect with %duration|duration and %color|color"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public triggerRiseWithColor(duration: number, color: number): void {
             this._riseDuration = duration
             let _duration = this._riseDuration
@@ -366,10 +366,10 @@ namespace ChristmasTree {
         /**
          * Trigger rise led effect
          */
-        //% blockId="christmastree_triggerRise" block="%tree trigger rise led effect with %duration|duration"
-        //% tree.defl=tree
+        //% blockId="christmasring_triggerRise" block="%ring trigger rise led effect with %duration|duration"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public triggerRise(duration: number): void {
             this._riseDuration = duration
             let _duration = this._riseDuration
@@ -380,10 +380,10 @@ namespace ChristmasTree {
         /**
          * Move rise led move upward
          */
-        //% blockId="christmastree_moveRise" block="%tree move rise led upward"
-        //% tree.defl=tree
+        //% blockId="christmasring_moveRise" block="%ring move rise led upward"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public moveRise(): void {
             let _duration = this._riseDuration
             this.strip.clear()
@@ -407,27 +407,27 @@ namespace ChristmasTree {
         }
 
         /**
-         * Set christmas tree color
+         * Set christmas ring color
          */
-        //% blockId="christmastree_setTreeColor" block="%tree set christmas tree led color to %color=neopixel_colors"
-        //% tree.defl=tree
+        //% blockId="christmasring_setRingColor" block="%ring set christmas ring led color to %color=neopixel_colors"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
-        public setTreeColor(color: number): void {
+        //% parts="christmasring"
+        public setRingColor(color: number): void {
             for (let idx = 0; idx <= 19; idx++) {
                 this.setLevelColor(idx, color)
             }
         }
 
         /**
-         * Set christmas tree brightness
+         * Set christmas ring brightness
          * value larger than 50 color will change to white
          */
-        //% blockId="christmastree_setTreeColorAndBrightness" block="%tree set christmas tree color to %color=christmastree_pickColorHue and led brightness to %brightness"
-        //% tree.defl=tree
+        //% blockId="christmasring_setRingColorAndBrightness" block="%ring set christmas ring color to %color=christmasring_pickColorHue and led brightness to %brightness"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
-        public setTreeColorAndBrightness(color: number, brightness: number): void {
+        //% parts="christmasring"
+        public setRingColorAndBrightness(color: number, brightness: number): void {
             for (let idx = 0; idx <= 19; idx++) {
                 this.setLevelColor(idx, neopixel.hsl(color, 100, brightness))
             }
@@ -436,14 +436,14 @@ namespace ChristmasTree {
 
 
         /**
-         * Set christmas tree brightness
+         * Set christmas ring brightness
          * Set specfic level to different color and brightness
          * (0 = level-1, 1 = level-2, etc...)
          */
-        //% blockId="christmastree_setLevelColorAndBrightness" block="%tree set level-%level=christmastree_levels color to %color=christmastree_pickColorHue and led brightness to %brightness"
-        //% tree.defl=tree
+        //% blockId="christmasring_setLevelColorAndBrightness" block="%ring set level-%level=christmasring_levels color to %color=christmasring_pickColorHue and led brightness to %brightness"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public setLevelColorAndBrightness(level: number, color: number, brightness: number): void {
             this.setLevelColor(level, neopixel.hsl(color, 100, brightness))
         }
@@ -452,10 +452,10 @@ namespace ChristmasTree {
          * Set specfic level to different color 
          * (0 = level-1, 1 = level-2, etc...)
          */
-        //% blockId="christmastree_setLevelColor" block="%tree set level-%level=christmastree_levels led to %color=neopixel_colors"
-        //% tree.defl=tree
+        //% blockId="christmasring_setLevelColor" block="%ring set level-%level=christmasring_levels led to %color=neopixel_colors"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public setLevelColor(level: number, color: number): void {
             this.strip.setPixelColor(level, color)
             this.strip.setPixelColor(39 - level, color)
@@ -475,10 +475,10 @@ namespace ChristmasTree {
          * Set pixel color 
          * (0 = index-1, 1 = index-2, etc...)
          */
-        //% blockId="christmastree_setPixelColor" block="%tree set pixel-%index led to %color=neopixel_colors"
-        //% tree.defl=tree
+        //% blockId="christmasring_setPixelColor" block="%ring set pixel-%index led to %color=neopixel_colors"
+        //% ring.defl=ring
         //% weight=90 blockGap=8
-        //% parts="christmastree"
+        //% parts="christmasring"
         public setPixelColor(index: number, color: number): void {
             this.strip.setPixelColor(index, color)
         }
@@ -494,31 +494,31 @@ namespace ChristmasTree {
         }
     }
     /**
-      * Create a new Christmas Tree controller.
-      * @param mode the default mode where the Christmas tree default setting.
+      * Create a new Christmas Ring controller.
+      * @param mode the default mode where the Christmas ring default setting.
       */
-    //% blockId="christmastree_create" block="Create christmas tree"
+    //% blockId="christmasring_create" block="Create christmas ring"
     //% weight=90 blockGap=8
-    //% parts="christmastree"
+    //% parts="christmasring"
     //% trackArgs=0,1
-    //% blockSetVariable=tree
-    export function create(): ChristmasTree {
-        let tree = new ChristmasTree();
-        tree.mode = LEDMode.Rainbow;
-        tree.numOfLEDPerPillar = 19;
-        tree.totalNumLeds = 81;
-        tree.strip = neopixel.create(DigitalPin.P2, tree.totalNumLeds, NeoPixelMode.RGB);
-        tree.rainbowSpeed = 1;
+    //% blockSetVariable=ring
+    export function create(): ChristmasWreath {
+        let ring = new ChristmasWreath();
+        ring.mode = LEDMode.Rainbow;
+        ring.numOfLEDPerPillar = 19;
+        ring.totalNumLeds = 81;
+        ring.strip = neopixel.create(DigitalPin.P2, ring.totalNumLeds, NeoPixelMode.RGB);
+        ring.rainbowSpeed = 1;
 
-        tree.updateVars();
-        return tree;
+        ring.updateVars();
+        return ring;
     }
 
     /**
      * Gets the level value of a known levels
     */
     //% weight=2 blockGap=8
-    //% blockId="christmastree_levels" block="%level"
+    //% blockId="christmasring_levels" block="%level"
     //% advanced=true
     export function levels(_level: Level): number {
         return _level;
@@ -528,7 +528,7 @@ namespace ChristmasTree {
      * Gets color
     */
     //% weight=2 blockGap=8
-    //% blockId="christmastree_pickColors" block="Color $color"
+    //% blockId="christmasring_pickColors" block="Color $color"
     //% color.shadow="colorWheelHsvPicker"
     export function color(color: number): number {
         return neopixel.hsl(color / 255 * 360, 100, 50);
@@ -538,7 +538,7 @@ namespace ChristmasTree {
      * Gets color hue
     */
     //% weight=2 blockGap=8
-    //% blockId="christmastree_pickColorHue" block="Hue $color"
+    //% blockId="christmasring_pickColorHue" block="Hue $color"
     //% color.shadow="colorWheelHsvPicker"
     export function hue(color: number): number {
         return (color % 255) / 255 * 360;
