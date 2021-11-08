@@ -1,5 +1,5 @@
 {
-    "name": "xmasring_v1.3",
+    "name": "xmasring_v14",
     "version": "0.0.1",
     "description": "",
     "dependencies": {
@@ -15,7 +15,7 @@
         "christmaswreath.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "christmaswreath-test.ts"
     ],
     "targetVersions": {
         "target": "4.0.16",

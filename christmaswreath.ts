@@ -1,18 +1,20 @@
-// 在這裡添加你的程式
 /**
-* Use this file to define custom functions and blocks.
-* Read more at https://makecode.microbit.org/blocks/custom
+* ChristmasWreath Ring 
+* @category:	Common use
+* @purpose:	add LED support to WS2812 LED strip for micro bit
+* @author:	Tiebusa
+* @version:	1.0.2
 */
 
 enum LEDMode {
-    //% block="Ring Mode"
+    //% block="Rainbow Mode"
     Rainbow = 0,
-    //% block="Equalizer Mode"
-    Equalizer = 1,
-    //% block="Breath Mode"
-    Breath = 2,
-    //% block="Float Mode"
-    Rise = 3,
+    //% block="Dolphin Mode"
+    Dolphin = 1,
+    //% block="Fade Mode"
+    Fade = 2,
+    //% block="Bubble Mode"
+    Bubble = 3,
     //% block="Free Mode"
     Free = 4
 }
@@ -76,6 +78,7 @@ namespace ChristmasWreath {
         strip: neopixel.Strip;
         //numOfLEDs: number;
         totalNumLeds: number;
+        totalNumLevel: number;
         numOfLEDPerPillar: number;
 
         private _colorStep: number;
@@ -91,9 +94,9 @@ namespace ChristmasWreath {
         private _breathDir: number;
         private _breathColorOffset: number;
 
-        private _riseDuration: number;
-        private _riseState: number[];
-        private _riseColor: number[];
+        private _bubbleDuration: number;
+        private _bubbleState: number[];
+        private _bubbleColor: number[];
 
         private _colorList: number[];
 
@@ -105,9 +108,9 @@ namespace ChristmasWreath {
             this._breathDir = 1;
             this._breathColorOffset = 0;
 
-            this._riseState = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            this._riseColor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            this._riseDuration = 3;
+            this._bubbleState = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            this._bubbleColor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            this._bubbleDuration = 3;
 
         }
 
@@ -118,8 +121,9 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_clearStrip" block="%ring clear led color"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
+        //% advanced=true
         public clearStrip(): void {
             this.strip.clear();
         }
@@ -129,16 +133,16 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_showStrip" block="%ring show led color"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public showStrip(): void {
             this.strip.show();
         }
 
         /**
-         * Shows a rainbow pattern on all LEDs.
-         * @param startHue the start hue value for the rainbow, eg: 1
-         * @param endHue the end hue value for the rainbow, eg: 360
+         * Change Mode.         
+                                                                     
+                                                                   
          */
         //% blockId="christmasring_changeMode" block="%ring|change mode to %mode"
         //% ring.defl=ring
@@ -147,6 +151,17 @@ namespace ChristmasWreath {
         public changeMode(m: LEDMode): void {
             this._isSetupRainbow = false;
             this.mode = m;
+        }
+
+        /**
+         * Get current mode.         
+         */
+        //% blockId="christmasring_getMode" block="%ring|get current mode"
+        //% ring.defl=ring
+        //% weight=85 blockGap=8
+        //% parts="christmasring"
+        public getMode(): LEDMode {
+            return this.mode;
         }
 
         /**
@@ -174,7 +189,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_nextMode" block="%ring play next mode"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public nextMode(): void {
             this._isSetupRainbow = false;
@@ -189,7 +204,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_previousMode" block="%ring play previous mode"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public previousMode(): void {
             this._isSetupRainbow = false;
@@ -204,38 +219,45 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_update" block="%ring update lighting animation"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public update(): void {
-            if (this.mode == 0) {
+            if (this.mode == LEDMode.Rainbow) {
                 this.rainbowAnimation(this.rainbowSpeed);
                 this.showStrip();
                 basic.pause(100);
-            } else if (this.mode == 1) {
+            } else if (this.mode == LEDMode.Dolphin) {
+                this.rainbowAnimation(this.rainbowSpeed);
+                this.showStrip();
+                basic.pause(100);
+            } else if (this.mode == LEDMode.Fade) {
+                this.breathAnimation();
+                this.showStrip();
+            } else if (this.mode == LEDMode.Bubble) {
                 let mic = 128
                 try {
                     mic = input.soundLevel()
                 } catch (err) {
                     mic = 128
                 }
-                this.equalizerAnimation(mic);
-                this.showStrip();
-                basic.pause(1);
-            } else if (this.mode == 2) {
-                this.breathAnimation();
-                this.showStrip();
-            } else if (this.mode == 3) {
-                let mic2 = 128
-                try {
-                    mic2 = input.soundLevel()
-                } catch (err) {
-                    mic2 = 128
-                }
-                this.riseAnimation(mic2, 100)
+                this.riseAnimation(mic, 100)
                 this.showStrip();
             } else {
                 this.showStrip();
             }
+
+            //else if (this.mode == LEDMode.Equalizer) {
+            //    let mic = 128
+            //    try {
+            //        mic = input.soundLevel()
+            //    } catch (err) {
+            //        mic = 128
+            //    }
+            //    this.equalizerAnimation(mic);
+            //    this.showStrip();
+            //    basic.pause(1);
+            //} 
+
             this._colorOffset += 1;
             this._breathColorOffset += 1;
             this._breathT += 1;
@@ -251,14 +273,14 @@ namespace ChristmasWreath {
         private lerp(x: number, y: number, a: number) {
             return (1 - a) * x + a * y;
         }
-        
+
         private applyColorPattern() {
             if (!this._colorList) {
-                this._colorList = [0xFF8522, 0xBAA550, 0x30ba2c];
+                this._colorList = [0xFF8522, 0xf00513, 0x30ba2c];
             }
             if (this._colorList.length == 0) {
                 this._colorList = [0xFF8522,
-                    0xBAA550,
+                    0xf00513,
                     0x30ba2c]
             }
             if (this._colorList.length == 1) {
@@ -324,14 +346,14 @@ namespace ChristmasWreath {
         */
         //% blockId="christmasring_setColorPattern" block="%ring|set color pattern to %colorList to "
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public setColorPattern(colorList: number[]): void {
             //this._colorList = colorList;
-            this._colorList = [];            
-            for (let j = 0; j < colorList.length && j <= this.totalNumLeds - 1; j++){                
+            this._colorList = [];
+            for (let j = 0; j < colorList.length && j <= this.totalNumLeds - 1; j++) {
                 this._colorList[j] = colorList[j];
-            }            
+            }
             console.log("colorList.length = " + this._colorList.length);
             this.applyColorPattern();
         }
@@ -341,7 +363,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_showRainbow" block="%ring|set to rainbow pattern"
         //% ring.defl=ring
-        //% weight=85 blockGap=8
+        //% weight=80 blockGap=8
         //% parts="christmasring"
         public showRainbow(): void {
             this.strip.showRainbow();
@@ -352,7 +374,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_rainbowAnimation" block="%ring play rainbow animation width speed%speed"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public rainbowAnimation(speed: number): void {
             this.rainbowSpeed = speed;
@@ -360,6 +382,7 @@ namespace ChristmasWreath {
                 this._isSetupRainbow = true;
                 this.strip.clear();
                 //this.strip.showRainbow(1, 360);
+
                 this.applyColorPattern();
             }
             this.rotatePixelColor(this.rainbowSpeed)
@@ -371,7 +394,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_equalizerAnimation" block="%ring play equalizer animation with sound level%value"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public equalizerAnimation(micVal: number): void {
             if (this._lastMicVal != -1) {
@@ -405,7 +428,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_breathAnimation" block="%ring play breath animation"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public breathAnimation() {
             if (this._breathT % 100 == 0) {
@@ -419,9 +442,9 @@ namespace ChristmasWreath {
             }
 
             this.strip.clear()
-            for (let index = 0; index < this.numOfLEDPerPillar; index++) {
-                let color = this.makeColor((this._breathColorOffset / 7 + (60 / this.numOfLEDPerPillar * index)) % 360, 100, breathB * 0.45 + 5)
-                this.setLevelColor(index, color)
+            for (let index2 = 0; index2 < this.numOfLEDPerPillar; index2++) {
+                let color = this.makeColor((this._breathColorOffset / 7 + (60 / this.numOfLEDPerPillar * index2)) % 360, 100, breathB * 0.45 + 5)
+                this.setLevelColor(index2, color)
             }
 
         }
@@ -429,9 +452,9 @@ namespace ChristmasWreath {
         /**
          * Play rise animation
          */
-        //% blockId="christmasring_riseAnimation" block="%ring play rise animation with sound level%micVale and trigger threshold%threshold"
+        //% blockId="christmasring_bubbleAnimation" block="%ring play rise animation with sound level%micVale and trigger threshold%threshold"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public riseAnimation(micVal: Number, threshold: Number): void {
             let _duration = 3
@@ -448,13 +471,13 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_triggerRiseWithColor" block="%ring trigger rise led effect with %duration|duration and %color|color"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public triggerRiseWithColor(duration: number, color: number): void {
-            this._riseDuration = duration
-            let _duration = this._riseDuration
-            this._riseState[0] = this._riseState[1] = _duration
-            this._riseColor[0] = this._riseColor[1] = this.makeColor(color, 100, 50)
+            this._bubbleDuration = duration
+            let _duration2 = this._bubbleDuration
+            this._bubbleState[0] = this._bubbleState[1] = _duration2
+            this._bubbleColor[0] = this._bubbleColor[1] = this.makeColor(color, 100, 50)
         }
 
 
@@ -463,13 +486,13 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_triggerRise" block="%ring trigger rise led effect with %duration|duration"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public triggerRise(duration: number): void {
-            this._riseDuration = duration
-            let _duration = this._riseDuration
-            this._riseState[0] = this._riseState[1] = _duration
-            this._riseColor[0] = this._riseColor[1] = this.makeColor(Math.random() * 360, 100, 50)
+            this._bubbleDuration = duration
+            let _duration3 = this._bubbleDuration
+            this._bubbleState[0] = this._bubbleState[1] = _duration3
+            this._bubbleColor[0] = this._bubbleColor[1] = this.makeColor(Math.random() * 360, 100, 50)
         }
 
         /**
@@ -477,19 +500,19 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_moveRise" block="%ring move rise led upward"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public moveRise(): void {
-            let _duration = this._riseDuration
+            let _duration4 = this._bubbleDuration
             this.strip.clear()
 
             for (let level = 0; level < this.numOfLEDPerPillar; level++) {
-                if (this._riseState[level] > 0) {
-                    this.setLevelColor(level, this._riseColor[level])
-                    this._riseState[level] -= 1;
-                    if (this._riseState[level] == 0 && level + 1 < this.numOfLEDPerPillar) {
-                        this._riseState[level + 1] = _duration + 1;
-                        this._riseColor[level + 1] = this._riseColor[level]
+                if (this._bubbleState[level] > 0) {
+                    this.setLevelColor(level, this._bubbleColor[level])
+                    this._bubbleState[level] -= 1;
+                    if (this._bubbleState[level] == 0 && level + 1 < this.numOfLEDPerPillar) {
+                        this._bubbleState[level + 1] = _duration4 + 1;
+                        this._bubbleColor[level + 1] = this._bubbleColor[level]
                     }
                 } else {
                     this.setLevelColor(level, this.makeColor(30, 25, 10))
@@ -506,10 +529,10 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_setRingColor" block="%ring set christmas ring led color to %color=neopixel_colors"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public setRingColor(color: number): void {
-            for (let idx = 0; idx <= 19; idx++) {
+            for (let idx = 0; idx <= this.totalNumLevel; idx++) {
                 this.setLevelColor(idx, color)
             }
         }
@@ -520,10 +543,10 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_setRingColorAndBrightness" block="%ring set christmas ring color to %color=christmasring_pickColorHue and led brightness to %brightness"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public setRingColorAndBrightness(color: number, brightness: number): void {
-            for (let idx = 0; idx <= 19; idx++) {
+            for (let idx = 0; idx <= this.totalNumLevel; idx++) {
                 this.setLevelColor(idx, neopixel.hsl(color, 100, brightness))
             }
         }
@@ -537,7 +560,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_setLevelColorAndBrightness" block="%ring set level-%level=christmasring_levels color to %color=christmasring_pickColorHue and led brightness to %brightness"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public setLevelColorAndBrightness(level: number, color: number, brightness: number): void {
             this.setLevelColor(level, neopixel.hsl(color, 100, brightness))
@@ -549,16 +572,16 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_setLevelColor" block="%ring set level-%level=christmasring_levels led to %color=neopixel_colors"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public setLevelColor(level: number, color: number): void {
             this.strip.setPixelColor(level, color)
-            this.strip.setPixelColor(this.totalNumLeds - level, color)
-            //this.strip.setPixelColor(39 - level, color)
+            this.strip.setPixelColor(this.totalNumLeds - level - 1, color)
+            //this.strip.setPixelColor(39 - level, color)								 
             //this.strip.setPixelColor(level + 41, color)
             //this.strip.setPixelColor(81 - level, color)
-//
-            //if (level == this.numOfLEDPerPillar - 1) {
+
+            //if(level==this.numOfLEDPerPillar-1){
             //    this.strip.setPixelColor(19, color)
             //    this.strip.setPixelColor(20, color)
             //    this.strip.setPixelColor(60, color)
@@ -573,7 +596,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmasring_setPixelColor" block="%ring set pixel-%index led to %color=neopixel_colors"
         //% ring.defl=ring
-        //% weight=90 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmasring"
         public setPixelColor(index: number, color: number): void {
             this.strip.setPixelColor(index, color)
@@ -603,6 +626,7 @@ namespace ChristmasWreath {
         ring.mode = LEDMode.Rainbow;
         ring.numOfLEDPerPillar = 15;
         ring.totalNumLeds = 30;
+        ring.totalNumLevel = 15;
         ring.strip = neopixel.create(DigitalPin.P2, ring.totalNumLeds, NeoPixelMode.RGB);
         ring.rainbowSpeed = 1;
 
@@ -621,16 +645,16 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets HSL Color
-    */
-    //% weight=2 blockGap=8
-    //% blockId="christmasring_pickColors" block="Color $color"
-    //% color.shadow="colorWheelHsvPicker"
-    export function color(color: number): number {
-        return neopixel.hsl(color / 255 * 360, 100, 50);
-    }
+                                                                         
+                                                                       
+       
+                           
+                                                                                      
+                                                                            	
+                                              
+     
 
-    /**
+       
      * Gets red, green, blue channels into a RGB color
      * @param red value of the red channel between 0 and 255. eg: 255
      * @param green value of the green channel between 0 and 255. eg: 255
@@ -643,7 +667,7 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets Color hue
+     * Gets Color Hue
     */
     //% weight=2 blockGap=8
     //% blockId="christmasring_pickColorHue" block="Hue $color"
@@ -654,9 +678,10 @@ namespace ChristmasWreath {
     }
 
     /**
-     * Gets gradient color
+     * Gets Gradient Color
     */
-    //% block="show color wheel $color"
+    //% weight=2 blockGap=8
+    //% block="Color Wheel $color"
     //% color.shadow="colorWheelPicker"
     //% advanced=false
     export function showColorWheel(color: number): number {
@@ -704,4 +729,5 @@ namespace ChristmasWreath {
         let colorInDecimal = fullColorHex(s, h, c);
         return colorInDecimal;
     }
+
 }
