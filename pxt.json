@@ -1,6 +1,6 @@
 {
     "name": "xmasring",
-    "version": "0.0.14",
+    "version": "0.0.2",
     "description": "",
     "dependencies": {
         "core": "*",
