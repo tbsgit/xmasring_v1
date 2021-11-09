@@ -121,10 +121,10 @@ namespace ChristmasWreath {
         /**
          * Clear strip led color
          */
-        //% blockId="christmaswreath_clearStrip" block="%ring clear led color"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_clearStrip" block="%wreath clear led color"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         //% advanced=true
         public clearStrip(): void {
             this.strip.clear();
@@ -133,10 +133,10 @@ namespace ChristmasWreath {
         /**
          * Show strip led color
          */
-        //% blockId="christmaswreath_showStrip" block="%ring show led color"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_showStrip" block="%wreath show led color"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public showStrip(): void {
             this.strip.show();
         }
@@ -145,10 +145,10 @@ namespace ChristmasWreath {
         /**
          * Set Mic Threshold.
          */
-        //% blockId="christmaswreath_setMicThreshold" block="%ring|set mic threshold to %mic"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setMicThreshold" block="%wreath|set mic threshold to %mic"
+        //% wreath.defl=wreath
         //% weight=85 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         //% advanced=true
         public setMicThreshold(mic: number): void {
             this._defaultMicThreshold = mic;
@@ -157,10 +157,10 @@ namespace ChristmasWreath {
         /**
          * Change Mode.
          */
-        //% blockId="christmaswreath_changeMode" block="%ring|change mode to %mode"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_changeMode" block="%wreath|change mode to %mode"
+        //% wreath.defl=wreath
         //% weight=85 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public changeMode(m: LEDMode): void {
             this._isSetupRing = false;
             this.mode = m;
@@ -169,23 +169,23 @@ namespace ChristmasWreath {
         /**
          * Get current mode.
          */
-        //% blockId="christmaswreath_getMode" block="%ring|get current mode"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_getMode" block="%wreath|get current mode"
+        //% wreath.defl=wreath
         //% weight=85 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public getMode(): LEDMode {
             return this.mode;
         }
 
         /**
          * Shows a ring pattern on all LEDs.
-         * @param startHue the start hue value for the ring, eg: 1
-         * @param endHue the end hue value for the ring, eg: 360
+         * @param startHue the start hue value for the wreath, eg: 1
+         * @param endHue the end hue value for the wreath, eg: 360
          */
-        //% blockId="christmaswreath_rotatePixelColor" block="%ring|move pixel by %mode|pixel"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_rotatePixelColor" block="%wreath|move pixel by %mode|pixel"
+        //% wreath.defl=wreath
         //% weight=85 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public rotatePixelColor(speed: number): void {
             this.ringSpeed = speed;
             if (this.ringSpeed > 5) {
@@ -200,10 +200,10 @@ namespace ChristmasWreath {
         /**
          * Play next animation
          */
-        //% blockId="christmaswreath_nextMode" block="%ring play next mode"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_nextMode" block="%wreath play next mode"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public nextMode(): void {
             this._isSetupRing = false;
             this.mode += 1;
@@ -215,10 +215,10 @@ namespace ChristmasWreath {
         /**
          * Play previous animation
          */
-        //% blockId="christmaswreath_previousMode" block="%ring play previous mode"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_previousMode" block="%wreath play previous mode"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public previousMode(): void {
             this._isSetupRing = false;
             this.mode -= 1;
@@ -230,10 +230,10 @@ namespace ChristmasWreath {
         /**
          * Update animation
          */
-        //% blockId="christmaswreath_update" block="%ring update lighting animation"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_update" block="%wreath update lighting animation"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public update(): void {
             if (this.mode == LEDMode.Ring) {
                 this.ringAnimation(this.ringSpeed);
@@ -428,10 +428,10 @@ namespace ChristmasWreath {
          * Set color pattern list
         * (0, 1, 2, 3, etc...)
         */
-        //% blockId="christmaswreath_setColorPattern" block="%ring|set color pattern to %colorList to "
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setColorPattern" block="%wreath|set color pattern to %colorList to "
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public setColorPattern(colorList: number[]): void {
             //this._colorList = colorList;
             if (this.mode == LEDMode.Dolphin) {
@@ -455,12 +455,12 @@ namespace ChristmasWreath {
         }
 
         /**
-         * Set leds strip to ring pattern.
+         * Set leds strip to rainbow pattern.
          */
-        //% blockId="christmaswreath_showRing" block="%ring|set to ring pattern"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_showRing" block="%wreath|set to rainbow pattern"
+        //% wreath.defl=wreath
         //% weight=80 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public showRainbow(): void {
             this.strip.showRainbow();
         }
@@ -468,10 +468,10 @@ namespace ChristmasWreath {
         /**
          * Play ring animation
          */
-        //% blockId="christmaswreath_ringAnimation" block="%ring play ring animation width speed%speed"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_ringAnimation" block="%wreath play ring animation width speed%speed"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public ringAnimation(speed: number): void {
             this.ringSpeed = speed;
             if (this._isSetupRing == false || this._isSetupRing == null) {
@@ -487,10 +487,10 @@ namespace ChristmasWreath {
         /**
          * Play dolphin animation
          */
-        //% blockId="christmaswreath_dolphinAnimation" block="%ring play dolphin animation width speed%speed"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_dolphinAnimation" block="%wreath play dolphin animation width speed%speed"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public dolphinAnimation(speed: number): void {
             //console.log('dolphinAnimation() s')
             this.ringSpeed = speed;
@@ -509,10 +509,10 @@ namespace ChristmasWreath {
         /**
          * Play equalizer animation
          */
-        //% blockId="christmaswreath_equalizerAnimation" block="%ring play equalizer animation with sound level%value"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_equalizerAnimation" block="%wreath play equalizer animation with sound level%value"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         private equalizerAnimation(micVal: number): void {
             if (this._lastMicVal != -1) {
                 if (micVal < this._lastMicVal) {
@@ -543,10 +543,10 @@ namespace ChristmasWreath {
         /**
          * Play fade animation
          */
-        //% blockId="christmaswreath_fadeAnimation" block="%ring play fade animation"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_fadeAnimation" block="%wreath play fade animation"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public fadeAnimation() {
             if (this._fadeT % 100 == 0) {
                 this._fadeDir *= -1;
@@ -569,10 +569,10 @@ namespace ChristmasWreath {
         /**
          * Play bubble animation
          */
-        //% blockId="christmaswreath_bubbleAnimation" block="%ring play bubble animation with sound level%micVale and trigger threshold%threshold"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_bubbleAnimation" block="%wreath play bubble animation with sound level%micVale and trigger threshold%threshold"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public bubbleAnimation(micVal: Number, threshold: Number): void {
             let _duration = 3
             if (micVal > threshold) {
@@ -586,10 +586,10 @@ namespace ChristmasWreath {
         /**
          * Trigger bubble led effect
          */
-        //% blockId="christmaswreath_triggerBubbleWithColor" block="%ring trigger bubble led effect with %duration|duration and %color|color"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_triggerBubbleWithColor" block="%wreath trigger bubble led effect with %duration|duration and %color|color"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public triggerBubbleWithColor(duration: number, color: number): void {
             this._bubbleDuration = duration
             let _duration2 = this._bubbleDuration
@@ -601,10 +601,10 @@ namespace ChristmasWreath {
         /**
          * Trigger bubble led effect
          */
-        //% blockId="christmaswreath_triggerBubble" block="%ring trigger bubble led effect with %duration|duration"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_triggerBubble" block="%wreath trigger bubble led effect with %duration|duration"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public triggerBubble(duration: number): void {
             this._bubbleDuration = duration
             let _duration3 = this._bubbleDuration
@@ -615,10 +615,10 @@ namespace ChristmasWreath {
         /**
          * Move bubble led move upward
          */
-        //% blockId="christmaswreath_moveBubble" block="%ring move bubble led upward"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_moveBubble" block="%wreath move bubble led upward"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public moveBubble(): void {
             let _duration4 = this._bubbleDuration
             this.strip.clear()
@@ -645,12 +645,12 @@ namespace ChristmasWreath {
         }
 
         /**
-         * Set christmas ring color
+         * Set christmas wreath color
          */
-        //% blockId="christmaswreath_setRingColor" block="%ring set christmas ring led color to %color=neopixel_colors"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setRingColor" block="%wreath set christmas wreath led color to %color=neopixel_colors"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public setRingColor(color: number): void {
             for (let idx = 0; idx <= this.totalNumLevel; idx++) {
                 this.setLevelColor(idx, color)
@@ -658,13 +658,13 @@ namespace ChristmasWreath {
         }
 
         /**
-         * Set christmas ring brightness
+         * Set christmas wreath brightness
          * value larger than 50 color will change to white
          */
-        //% blockId="christmaswreath_setRingColorAndBrightness" block="%ring set christmas ring color to %color=christmaswreath_pickColorHue and led brightness to %brightness"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setRingColorAndBrightness" block="%wreath set christmas wreath color to %color=christmaswreath_pickColorHue and led brightness to %brightness"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public setRingColorAndBrightness(color: number, brightness: number): void {
             for (let idx = 0; idx <= this.totalNumLevel; idx++) {
                 this.setLevelColor(idx, neopixel.hsl(color, 100, brightness))
@@ -672,14 +672,14 @@ namespace ChristmasWreath {
         }
 
         /**
-         * Set christmas ring brightness
+         * Set christmas wreath brightness
          * Set specfic level to different color and brightness
          * (0 = level-1, 1 = level-2, etc...)
          */
-        //% blockId="christmaswreath_setLevelColorAndBrightness" block="%ring set level-%level=christmaswreath_levels color to %color=christmaswreath_pickColorHue and led brightness to %brightness"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setLevelColorAndBrightness" block="%wreath set level-%level=christmaswreath_levels color to %color=christmaswreath_pickColorHue and led brightness to %brightness"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public setLevelColorAndBrightness(level: number, color: number, brightness: number): void {
             this.setLevelColor(level, neopixel.hsl(color, 100, brightness))
         }
@@ -688,10 +688,10 @@ namespace ChristmasWreath {
          * Set specfic level to different color
          * (0 = level-1, 1 = level-2, etc...)
          */
-        //% blockId="christmaswreath_setLevelColor" block="%ring set level-%level=christmaswreath_levels led to %color=neopixel_colors"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setLevelColor" block="%wreath set level-%level=christmaswreath_levels led to %color=neopixel_colors"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public setLevelColor(level: number, color: number): void {
             this.strip.setPixelColor(level, color)
             this.strip.setPixelColor(this.totalNumLeds - level - 1, color)
@@ -712,10 +712,10 @@ namespace ChristmasWreath {
          * Set pixel color
          * (0 = index-1, 1 = index-2, etc...)
          */
-        //% blockId="christmaswreath_setPixelColor" block="%ring set pixel-%index led to %color=neopixel_colors"
-        //% ring.defl=ring
+        //% blockId="christmaswreath_setPixelColor" block="%wreath set pixel-%index led to %color=neopixel_colors"
+        //% wreath.defl=wreath
         //% weight=50 blockGap=8
-        //% parts="christmasring"
+        //% parts="christmaswreath"
         public setPixelColor(index: number, color: number): void {
             this.strip.setPixelColor(index, color)
         }
@@ -731,12 +731,12 @@ namespace ChristmasWreath {
         }
     }
     /**
-      * Create a new Christmas Ring controller.
-      * @param mode the default mode where the Christmas ring default setting.
+      * Create a new Christmas Wreath controller.
+      * @param mode the default mode where the Christmas wreath default setting.
       */
-    //% blockId="christmaswreath_create" block="Create christmas ring"
+    //% blockId="christmaswreath_create" block="Create christmas wreath"
     //% weight=90 blockGap=8
-    //% parts="christmasring"
+    //% parts="christmaswreath"
     //% trackArgs=0,1
     //% blockSetVariable=wreath
     export function create(): ChristmasWreath {
