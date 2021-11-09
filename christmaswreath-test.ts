@@ -8,7 +8,7 @@
     let wreath: ChristmasWreath.ChristmasWreath = null
     basic.showLeds(`
     # # # # #
-    # . # . #
+    . . # . .
     . . # . .
     . . # . .
     . # # # .
@@ -18,8 +18,7 @@
     wreath.setColorPattern([ChristmasWreath.rgbColor(255, 100, 0), ChristmasWreath.rgbColor(255, 0, 255), ChristmasWreath.rgbColor(1, 100, 47)])
 
     let mode = wreath.getMode();
-    wreath.setMicThreshold(60);
-
+    wreath.setMicThreshold(50);
     basic.forever(function () {
         wreath.update()
     })

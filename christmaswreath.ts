@@ -785,6 +785,9 @@ namespace ChristmasWreath {
      */
     //% weight=2 blockGap=8
     //% blockId="christmaswreath_pickRgbColors" block="red %red|green %green|blue %blue"
+    //% red.min=0 red.max= 255 red.defl=0
+    //% green.min=0 green.max= 255 green.defl=0
+    //% blue.min=0 blue.max= 255 blue.defl=0
     export function rgbColor(red: number, green: number, blue: number): number {
         return neopixel.rgb(red, green, blue);
     }
