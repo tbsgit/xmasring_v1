@@ -88,6 +88,7 @@ namespace ChristmasWreath {
 
         ringSpeed: number;
         private _isSetupRing: boolean;
+        private _defaultMicThreshold: number;
 
 
         private _fadeT: number;
@@ -111,6 +112,7 @@ namespace ChristmasWreath {
             this._bubbleState = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             this._bubbleColor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             this._bubbleDuration = 3;
+            this._defaultMicThreshold = 50;
 
         }
 
@@ -137,6 +139,19 @@ namespace ChristmasWreath {
         //% parts="christmasring"
         public showStrip(): void {
             this.strip.show();
+        }
+
+
+        /**
+         * Set Mic Threshold.
+         */
+        //% blockId="christmaswreath_setMicThreshold" block="%ring|set mic threshold to %mic"
+        //% ring.defl=ring
+        //% weight=85 blockGap=8
+        //% parts="christmasring"
+        //% advanced=true
+        public setMicThreshold(mic: number): void {
+            this._defaultMicThreshold = mic;
         }
 
         /**
@@ -238,7 +253,7 @@ namespace ChristmasWreath {
                 } catch (err) {
                     mic = 128
                 }
-                this.bubbleAnimation(mic, 100)
+                this.bubbleAnimation(mic, this._defaultMicThreshold)
                 this.showStrip();
             } else {
                 this.showStrip();
@@ -281,10 +296,10 @@ namespace ChristmasWreath {
                 this._colorList[1] = this._colorList[0];
                 this._colorList[2] = this._colorList[0];
                 this._colorList[3] = this._colorList[0];
-            } else if (this._colorList.length == 2) {                
+            } else if (this._colorList.length == 2) {
                 this._colorList[2] = this._colorList[1];
                 this._colorList[3] = this._colorList[2];
-            } else if(this._colorList.length == 3) {
+            } else if (this._colorList.length == 3) {
                 this._colorList[3] = this._colorList[2];
             }
 

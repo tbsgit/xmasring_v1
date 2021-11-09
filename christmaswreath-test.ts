@@ -27,8 +27,6 @@
         ChristmasWreath.rgbColor(41, 137, 204),
         ChristmasWreath.rgbColor(26, 81, 237),
         ChristmasWreath.rgbColor(79, 255, 199),
-        ChristmasWreath.rgbColor(138, 255, 160),
-        ChristmasWreath.rgbColor(79, 255, 199),
         ChristmasWreath.rgbColor(138, 255, 160)
     ])
     wreath.showStrip()
@@ -37,8 +35,8 @@
     basic.forever(function () {
         //wreath.update()
         wreath.dolphinAnimation(speed)
-        //wreath.showStrip();
-        //basic.pause(100)
+        wreath.showStrip();
+        basic.pause(100)
     })
 
 }
