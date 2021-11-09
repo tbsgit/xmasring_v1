@@ -144,13 +144,14 @@ namespace ChristmasWreath {
 
         /**
          * Set Mic Threshold.
+         * @param mic range from 0 to 255, for quiet area about 50, eg: 50,100,128
          */
         //% blockId="christmaswreath_setMicThreshold" block="%wreath|set mic threshold to %mic"
         //% wreath.defl=wreath
         //% weight=85 blockGap=8
         //% parts="christmaswreath"
         //% advanced=true
-        public setMicThreshold(mic: number): void {
+        public setMicThreshold(mic: number = 50): void {
             this._defaultMicThreshold = mic;
         }
 
