@@ -20,16 +20,19 @@
     . # # # .
     `)
     ring = ChristmasWreath.create()
-    ring.changeMode(LEDMode.Rainbow)
+    ring.changeMode(LEDMode.Dolphin)
     ring.setColorPattern([
-        ChristmasWreath.rgbColor(255, 0, 0), 
-        ChristmasWreath.rgbColor(0, 0, 255)
+        ChristmasWreath.rgbColor(41, 137, 204),
+        ChristmasWreath.rgbColor(239, 251, 255),
+        ChristmasWreath.rgbColor(79, 255, 199),
+        ChristmasWreath.rgbColor(138, 255, 160)
     ])
     ring.showStrip()
     speed = 0
     basic.forever(function () {
-        ring.rainbowAnimation(speed)
-        ring.showStrip()
+        ring.dolphinAnimation(speed)
+        ring.showStrip();
+        basic.pause(100)
     })
 
 }
