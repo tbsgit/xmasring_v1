@@ -3,7 +3,7 @@
 * @category: Digital Art
 * @purpose: add LED support to WS2812 LED strip for micro bit
 * @author: Tiebusa
-* @version: 1.0.4
+* @version: 1.0.5
 */
 
 enum LEDMode {
@@ -100,6 +100,7 @@ namespace ChristmasWreath {
         private _bubbleColor: number[];
 
         private _colorList: number[];
+        private _hasAppliedCustomColor: boolean;
 
         public updateVars(): void {
             this._colorStep = 360 / this.numOfLEDPerPillar;
@@ -113,10 +114,9 @@ namespace ChristmasWreath {
             this._bubbleColor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             this._bubbleDuration = 3;
             this._defaultMicThreshold = 50;
+            this._hasAppliedCustomColor = false;
 
         }
-
-
 
         /**
          * Clear strip led color
@@ -131,11 +131,11 @@ namespace ChristmasWreath {
         }
 
         /**
-         * Show strip led color
+         * Show strip led color. Any change in memory needed call this function to display on LED strip.
          */
         //% blockId="christmaswreath_showStrip" block="%wreath show led color"
         //% wreath.defl=wreath
-        //% weight=50 blockGap=8
+        //% weight=80 blockGap=8
         //% parts="christmaswreath"
         public showStrip(): void {
             this.strip.show();
@@ -143,7 +143,7 @@ namespace ChristmasWreath {
 
 
         /**
-         * Set Mic Threshold.
+         * Set microphone threshold to trigger bubble animation.
          * @param mic range from 0 to 255, for quiet area about 50, eg: 50,100,128
          */
         //% blockId="christmaswreath_setMicThreshold" block="%wreath|set mic threshold to %mic"
@@ -152,7 +152,11 @@ namespace ChristmasWreath {
         //% parts="christmaswreath"
         //% advanced=true
         public setMicThreshold(mic: number = 50): void {
-            this._defaultMicThreshold = mic;
+            if (mic >= 0 && mic <= 255) {
+                this._defaultMicThreshold = mic;
+            } else {
+                this._defaultMicThreshold = 50;
+            }
         }
 
         /**
@@ -172,21 +176,21 @@ namespace ChristmasWreath {
          */
         //% blockId="christmaswreath_getMode" block="%wreath|get current mode"
         //% wreath.defl=wreath
-        //% weight=85 blockGap=8
+        //% weight=70 blockGap=8
         //% parts="christmaswreath"
+        //% advanced=true
         public getMode(): LEDMode {
             return this.mode;
         }
 
         /**
-         * Shows a ring pattern on all LEDs.
-         * @param startHue the start hue value for the wreath, eg: 1
-         * @param endHue the end hue value for the wreath, eg: 360
+         * Rotate a pixel pattern among the LED strip.
          */
-        //% blockId="christmaswreath_rotatePixelColor" block="%wreath|move pixel by %mode|pixel"
+        //% blockId="christmaswreath_rotatePixelColor" block="%wreath|rotate pixel by %mode|pixel"
         //% wreath.defl=wreath
-        //% weight=85 blockGap=8
+        //% weight=50 blockGap=8
         //% parts="christmaswreath"
+        //% advanced=true
         public rotatePixelColor(speed: number): void {
             this.ringSpeed = speed;
             if (this.ringSpeed > 5) {
@@ -233,7 +237,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmaswreath_update" block="%wreath update lighting animation"
         //% wreath.defl=wreath
-        //% weight=50 blockGap=8
+        //% weight=75 blockGap=8
         //% parts="christmaswreath"
         public update(): void {
             if (this.mode == LEDMode.Ring) {
@@ -290,18 +294,18 @@ namespace ChristmasWreath {
 
         private applyDolphinPattern() {
             if (!this._colorList) {
-                this._colorList = [0xFF0000, 0x00FF00, 0x0000FF, 0xFFCC00];
+                this._colorList = [0x2989cc, 0x1a51ed, 0x4fffc7, 0x8affa0];
             }
 
             if (this._colorList.length == 1) {
-                this._colorList[1] = this._colorList[0];
-                this._colorList[2] = this._colorList[0];
-                this._colorList[3] = this._colorList[0];
+                this._colorList[1] = 0;
+                this._colorList[2] = 0;
+                this._colorList[3] = 0;
             } else if (this._colorList.length == 2) {
-                this._colorList[2] = this._colorList[1];
-                this._colorList[3] = this._colorList[2];
+                this._colorList[2] = 0;
+                this._colorList[3] = 0;
             } else if (this._colorList.length == 3) {
-                this._colorList[3] = this._colorList[2];
+                this._colorList[3] = 0;
             }
 
             let colorArray = [];
@@ -431,7 +435,7 @@ namespace ChristmasWreath {
         */
         //% blockId="christmaswreath_setColorPattern" block="%wreath|set color pattern to %colorList to "
         //% wreath.defl=wreath
-        //% weight=50 blockGap=8
+        //% weight=80 blockGap=8
         //% parts="christmaswreath"
         public setColorPattern(colorList: number[]): void {
             //this._colorList = colorList;
@@ -453,6 +457,8 @@ namespace ChristmasWreath {
 
                 this.applyColorPattern();
             }
+
+            this._hasAppliedCustomColor = true;
         }
 
         /**
@@ -462,7 +468,7 @@ namespace ChristmasWreath {
         //% wreath.defl=wreath
         //% weight=80 blockGap=8
         //% parts="christmaswreath"
-        public showRainbow(): void {
+        private showRainbow(): void {
             this.strip.showRainbow();
         }
 
@@ -609,8 +615,16 @@ namespace ChristmasWreath {
         public triggerBubble(duration: number): void {
             this._bubbleDuration = duration
             let _duration3 = this._bubbleDuration
-            this._bubbleState[0] = this._bubbleState[1] = _duration3
-            this._bubbleColor[0] = this._bubbleColor[1] = this.makeColor(Math.random() * 360, 100, 50)
+            this._bubbleState[0] = this._bubbleState[1] = _duration3;
+
+            if (this._hasAppliedCustomColor && this._colorList.length >= 1) {
+                let randId = Math.floor(Math.random() * this._colorList.length);
+                this._bubbleColor[0] = this._bubbleColor[1] = this._colorList[randId];
+
+                console.log(this._colorList[randId])
+            } else {
+                this._bubbleColor[0] = this._bubbleColor[1] = this.makeColor(Math.random() * 360, 100, 50)
+            }
         }
 
         /**
