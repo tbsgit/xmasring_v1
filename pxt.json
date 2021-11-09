@@ -12,7 +12,9 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "christmaswreath.ts"
+        "christmaswreath.ts",
+		"_locales/zh-TW/xmasring_v14-strings.json",
+		"_locales/zh-TW/xmasring_v14-jsdoc-strings.json"
     ],
     "testFiles": [
         "christmaswreath-test.ts"

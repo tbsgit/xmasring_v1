@@ -792,6 +792,7 @@ namespace ChristmasWreath {
     export function rgbColor(red: number, green: number, blue: number): number {
         return neopixel.rgb(red, green, blue);
     }
+	
 
     /**
      * Gets Color Hue
