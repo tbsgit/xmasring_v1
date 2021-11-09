@@ -148,6 +148,7 @@ namespace ChristmasWreath {
          */
         //% blockId="christmaswreath_setMicThreshold" block="%wreath|set mic threshold to %mic"
         //% wreath.defl=wreath
+        //% mic.min=0 mic.max= 255 mic.defl=50
         //% weight=85 blockGap=8
         //% parts="christmaswreath"
         //% advanced=true
