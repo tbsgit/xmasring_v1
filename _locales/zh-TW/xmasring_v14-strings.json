@@ -20,7 +20,7 @@
 	"ChristmasWreath.ChristmasWreath.showStrip|block": "%wreath show led color",
 	"ChristmasWreath.ChristmasWreath.triggerBubbleWithColor|block": "%wreath trigger bubble led effect with %duration|duration and %color|color",
 	"ChristmasWreath.ChristmasWreath.triggerBubble|block": "%wreath trigger bubble led effect with %duration|duration",
-	"ChristmasWreath.ChristmasWreath.update|block": "%wreath update lighting animation",
+	"ChristmasWreath.ChristmasWreath.update|block": "%wreath  update lighting animation",
 	"ChristmasWreath.create|block": "創造聖誕花環",
 	"ChristmasWreath.hueColor|block": "色相$color",
 	"ChristmasWreath.levels|block": "%level",
